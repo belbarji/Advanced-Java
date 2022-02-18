@@ -1,43 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-                        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
-
-
-        <bean id="controller" class="cigma.pfe.controllers.ClientController"
-              scope="prototype"></bean>
-        <bean id="controller" class="cigma.pfe.controllers.ClientController"/>
-        <bean id="repositories" class="cigma.pfe.repositories.ClientRepositoryImpl"/>
-        <bean id="services" class="cigma.pfe.services.ClientServiceImpl"/>
-
-</beans>-->
-<!--
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
         "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-        <bean id="controller" class="cigma.pfe.controllers.ClientController"
-              scope="prototype">
-        <property name="clientService" ref="service"/></bean>
-
-<bean id="service"
-      class="cigma.pfe.services.ClientServiceImpl"
-      scope="prototype"></bean>
-        </beans>-->
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
-        "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
-<beans>
-        <bean id="controller" class="cigma.pfe.controllers.ClientController"
-              scope="prototype">
-                <constructor-arg ref="service"/>
-        </bean>
-        <bean id="service" class="cigma.pfe.services.ClientServiceImpl"
-              scope="prototype">
-        <constructor-arg ref="repository"/>
-        </bean>
-        <bean id="repository"
-              class="cigma.pfe.repositories.ClientRepositoryImpl"
-              scope="prototype"></bean>
-
+    <bean id="controller" class="cigma.pfe.presentation.ClientController"
+          scope="prototype">
+        <constructor-arg ref="service"/>
+    </bean>
+    <bean id="service" class="cigma.pfe.services.ClientServiceImpl"
+          scope="prototype">
+        <constructor-arg ref="dao"/>
+    </bean>
+    <bean id="dao"
+          class="cigma.pfe.dao.ClientDaoImpl"
+          scope="prototype"/>
 </beans>
