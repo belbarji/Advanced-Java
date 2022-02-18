@@ -10,8 +10,8 @@ public class ApplicationRunner {
             ApplicationContext context = new
                     ClassPathXmlApplicationContext("spring.xml");
             ClientController ctrl = (ClientController)
-                    context.getBean("controller"); // controller est l'id dans le fichier Spring.xml
-            Client client = new Client(1,"ALAMI");
-            ctrl.save(client);
+                    context.getBean("idCtrl"); // controller est l'id dans le fichier Spring.xml
+            Client clt = new Client("OMAR");
+            ctrl.save(clt);
         }
     }
