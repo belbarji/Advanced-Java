@@ -2,70 +2,60 @@ package cigma.pfe.services;
 
 import cigma.pfe.models.Client;
 import cigma.pfe.dao.IClientDao;
+import cigma.pfe.models.Facture;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 
 public class ClientServiceImpl implements IClientService {
-    private IClientDao dao;
-    public void setDao(IClientDao dao) {
-        this.dao = dao;
-    }
-    @Override
-    public Client save(Client c) {
-        return dao.save(c);
-    }
-    @Override
-    public Client modify(Client c) {
-        return dao.update(c);
-    }
-    @Override
-    public void removeById(long id) {
-        dao.deleteById(id);
-    }
-    @Override
-    public Client getById(long id) {
-        return dao.findById(id);
-    }
-}
 
+        IClientDao clientRepository;
 
-
-
-  /*  private IClientDao dao;
-    public void setDao(IClientDao dao) {
-        this.dao = dao;
-    }
-    @Override
-    public Client save(Client c) {
-        return dao.save(c);
-    }
-    @Override
-    public Client modify(Client c) {
-        return dao.update(c);
-    }
-}*/
-
-
-
-
-
-
-
-
-
-
-       /* IClientDao clientRepository;// = new ClientDaoImpl();
-    public ClientServiceImpl(IClientDao clientRepository) {
-        System.out.println("Call ClientServiceImpl with ClientRepository param....");
-        this.clientRepository = clientRepository;
-    }
+        public void ClientServiceImp (IClientDao clientRepository) {
+            this.clientRepository = clientRepository;
+        }
         @Override
-        public boolean save(Client c) {
-            System.out.println("Service Layer : ClientServiceImpl Level... ");
+        public Client save(Client c ){
             return clientRepository.save(c);
         }
-        public ClientServiceImpl (){
-        System.out.println("Call ClientServiceImpl ....");
-}
-    }*/
+
+        @Override
+        public Client modify(Client c){
+            return clientRepository.update(c);
+        }
+        @Override
+        public void removeById(long id){
+            clientRepository.deleteById(id);
+        }
+        @Override
+        public Client getById(long id){
+            return clientRepository.findById(id);
+        }
+        @Override
+        public List<Client> getAll(){
+            return clientRepository.findAll();
+        }
+
+        // Facture
+
+        @Override
+        public Facture create(Facture f){
+            return clientRepository.create(f);
+        }
+
+        @Override
+        public List<Facture> read(){
+            return clientRepository.read();
+        }
+        @Override
+        public void delete(long id){
+            clientRepository.deleteFactureById(id);
+        }
+
+        @Override
+        public Facture update(Facture f) {
+            return clientRepository.update(f);
+        }
+    }

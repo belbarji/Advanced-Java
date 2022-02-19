@@ -1,11 +1,11 @@
 package cigma.pfe.dao;
 import cigma.pfe.models.Client;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import cigma.pfe.models.Facture;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class ClientDaoImpl implements IClientDao {
     public ClientDaoImpl(){}
@@ -20,46 +20,65 @@ public class ClientDaoImpl implements IClientDao {
         return null;
     }
     @Override
-    public Client update(Client newClient) {
+    public Client update(Client c){
         em.getTransaction().begin();
-        Client currentClient =
-                em.find(Client.class,newClient.getId());
-        currentClient.setName(newClient.getName());
+        Client currentClient = em.find(Client.class,c.getId());
+        currentClient.setName(c.getName());
         em.persist(currentClient);
         em.getTransaction().commit();
-        return null;
+        return null ;
     }
+
     @Override
-    public void deleteById(long idClient) {
+    public void deleteById(long id){
         em.getTransaction().begin();
-        Client clientInDataBase = em.find(Client.class, idClient);
+        Client clientInDataBase = em.find(Client.class,id);
         em.remove(clientInDataBase);
         em.getTransaction().commit();
     }
-        @Override
-        public Client findById(long idClient){
-            return em.find(Client.class, idClient);
 
-    }
-}
-
-
-
-
-
-    /*public ClientDaoImpl() {
+    @Override
+    public Client findById(long idClient) {
+        return em.find(Client.class,idClient);
     }
     @Override
-    public Client save(Client c) {
+    public List<Client> findAll(){
+        List<Client> ListClient = em.createQuery("select e from Tclients e").getResultList();
+        return ListClient;
+    }
+
+    //Factures
+
+
+    @Override
+    public Facture create(Facture f) {
         em.getTransaction().begin();
-        em.persist(c);
+        em.persist(f);
         em.getTransaction().commit();
         return null;
     }
 
     @Override
-    public Client update(Client c) {
-        return null;
+    public List<Facture> read() {
+        List<Facture> Read2 = em.createQuery("select e from TFactures e").getResultList();
+        return Read2;
+    }
+
+    @Override
+    public void deleteFactureById(long id) {
+
+        em.getTransaction().begin();
+        Facture clientInDataBase = em.find(Facture.class,id);
+        em.remove(clientInDataBase);
+        em.getTransaction().commit();
+    }
+    @Override
+    public Client update(Facture f) {
+        em.getTransaction().begin();
+        Facture currentFacture = em.find(Facture.class,f.getId());
+        currentFacture.setAmount(f.getAmount());
+        em.persist(currentFacture);
+        em.getTransaction().commit();
+        return null ;
     }
 }
-*/
